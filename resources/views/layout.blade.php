@@ -22,15 +22,17 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">Gastos</a>
 			</div>
 
 			
 		</div>
 	</nav>
+	<div class="container">
 
 	@yield('content')
 
+	</div>
 	<!-- Scripts -->
 	{!! Html::script('assets/js/bootstrap.min.js') !!}
 </body>

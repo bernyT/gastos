@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class TipoGasto extends Controller
+use App\TipoGastoModel;
+
+class TipoGastoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +18,9 @@ class TipoGasto extends Controller
      */
     public function index()
     {
-        return \View::make('tipo_gasto_listado'); 
+        $tipo_gastos = TipoGastoModel::all();
+        //return \View::make('tipo_gasto_listado');
+        return view('tipo_gasto_listado', ['tipo_gastos' => $tipo_gastos]); 
     }
 
     /**
@@ -26,7 +30,7 @@ class TipoGasto extends Controller
      */
     public function create()
     {
-        //
+        return view('tipo_gasto_create');
     }
 
     /**
@@ -37,7 +41,9 @@ class TipoGasto extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        TipoGastoModel::create($input);
+        return redirect()->route('tipo_gasto');
     }
 
     /**
@@ -48,7 +54,7 @@ class TipoGasto extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -59,7 +65,8 @@ class TipoGasto extends Controller
      */
     public function edit($id)
     {
-        //
+        $gasto = TipoGastoModel::findOrFail($id);
+        return view('tipo_gasto_edit', compact('gasto'));
     }
 
     /**
@@ -71,7 +78,11 @@ class TipoGasto extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $gasto = TipoGastoModel::findOrFail($id);
+        $gasto->fill( $request->all());
+        $gasto->save();
+
+        return redirect()->route('tipo_gasto');
     }
 
     /**
@@ -82,6 +93,10 @@ class TipoGasto extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gasto = TipoGastoModel::findOrFail($id);
+        //$gasto->delete();
+
+        //Session::flash('message', $gasto->nombre.' fue eliminado');
+        //return redirect()->route('tipo_gasto');   
     }
 }
