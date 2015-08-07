@@ -20,7 +20,7 @@ class TipoGastoController extends Controller
     {
         $tipo_gastos = TipoGastoModel::all();
         //return \View::make('tipo_gasto_listado');
-        return view('tipo_gasto_listado', ['tipo_gastos' => $tipo_gastos]); 
+        return view('tipo_gasto_listado', ['tipo_gastos' => $tipo_gastos,'title_panel' => 'Lista Gastos' ]); 
     }
 
     /**
@@ -94,9 +94,9 @@ class TipoGastoController extends Controller
     public function destroy($id)
     {
         $gasto = TipoGastoModel::findOrFail($id);
-        //$gasto->delete();
+        $gasto->delete();
 
-        //Session::flash('message', $gasto->nombre.' fue eliminado');
-        //return redirect()->route('tipo_gasto');   
+        Session::flash('message', $gasto->nombre.' fue eliminado');
+        return redirect()->route('tipo_gasto');   
     }
 }

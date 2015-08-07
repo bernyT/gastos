@@ -15,6 +15,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('gasto', [
+    'as' => 'gasto',
+    'uses' => 'GastoController@index'
+]);
+
+Route::get('gasto_edit/{id}', [
+    'as' => 'gasto_edit',
+    'uses' => 'GastoController@edit'
+]);
+
+Route::get('gasto_pagar/{id}', [
+    'as' => 'gasto_pagar',
+    'uses' => 'GastoController@pagar'
+]);
+
+Route::get('deuda', [
+    'as' => 'deuda',
+    'uses' => 'GastoController@show_deuda'
+]);
+
+Route::patch('gasto_update/{id}', [
+    'as' => 'gasto_update',
+    'uses' => 'GastoController@update'
+]);
+
 Route::get('tipo_gasto', [
     'as' => 'tipo_gasto',
     'uses' => 'TipoGastoController@index'

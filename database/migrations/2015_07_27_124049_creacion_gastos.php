@@ -16,9 +16,9 @@ class CreacionGastos extends Migration
             $table->increments('id');
             $table->timestamps('fecha_vencimineto');
             $table->float('importe');
-            $table->integer('id_gasto')->unsigned();
+            $table->integer('id_tipo_gasto')->unsigned();
     
-            $table->foreign('id_gasto')->references('id')->on('tipo_gastos');
+            $table->foreign('id_tipo_gasto')->references('id')->on('tipo_gastos');
         });
     }
 

@@ -1,12 +1,15 @@
-@extends('layout')
+@extends('layout/layout_panel')
 
-@section('content')
+@include('layout/layout_navbar')
 
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Tipo Gasto</div>
-				<div class="panel-body">
+@section('title_panel')
+	<p>Agregar</p>
+@endsection
+
+
+@section('content_panel')
+	
+	
 					{!! Form::open(array('route' => 'tipo_gasto_store', 'class' => 'form', 'method' => 'put')) !!}
 
 					<div class="form-group">
@@ -25,9 +28,5 @@
 					    {!! Form::submit('Guardar', array('class'=>'btn btn-primary')) !!}
 					</div>
 					{!! Form::close() !!}
-				</div>
-			</div>
-		</div>
-	</div>
-	
+		
 @endsection
