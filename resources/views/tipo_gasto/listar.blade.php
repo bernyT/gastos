@@ -17,8 +17,3 @@
 	    <hr>
 	@endforeach
 @endsection
-
-@section('scripts')
-	@parent
-	{!! Html::script('assets/js/jquery-2.1.4.min.js') !!}
-@endsection

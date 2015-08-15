@@ -9,9 +9,10 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
 		          	aria-haspopup="true" aria-expanded="false">Gasto <span class="caret"></span></a>
 		          	<ul class="dropdown-menu">
+		          		<li><a href="{!! route('gasto_create') !!}" >Agregar</a></li>
 		            	<li><a href="{!! route('gasto') !!}" >Ver</a></li>
-		            	<li><a href="{!! route('tipo_gasto') !!}" >Pagas</a></li>
-		            	<li><a href="#">A Pagar</a></li>
+		            	<li><a href="#" >Pagas</a></li>
+		            	<li><a href="{!! route('deuda') !!}">A Pagar</a></li>
 		         	</ul>
 		        </li>
 		      <li class="dropdown">

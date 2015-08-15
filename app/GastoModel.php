@@ -14,6 +14,7 @@ class GastoModel extends Model
         'fecha_vencimineto',
         'id_tipo_gasto',
         'fecha_pago',
+        'pagado',
     ];
 
     public function tipo_gasto(){

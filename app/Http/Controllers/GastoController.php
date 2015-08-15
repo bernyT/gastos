@@ -32,7 +32,7 @@ class GastoController extends Controller
             array_push($array_gastos, $tmp);
         }
 
-        return view('gasto_listado', ['gastos' => $array_gastos, 'title_panel' => 'Lista Gastos' ]); 
+        return view('gasto/listar', ['gastos' => $array_gastos, 'title_panel' => 'Lista Gastos' ]); 
     }
 
     /**
@@ -42,7 +42,30 @@ class GastoController extends Controller
      */
     public function create()
     {
-        //
+        //Busco los tipos de gasto para el combo de la vista
+        $tipos_gasto = TipoGastoModel::all();
+        $datos_tipo = array();
+        foreach($tipos_gasto as $tipo) {
+            $datos_tipo[$tipo->id] = $tipo->nombre;
+        }
+
+        return view('gasto/crear', [ 'title_panel' => 'Agregar', 'tipo_gasto' => $datos_tipo, 'instantanea' => false]);
+    }
+    
+    /**
+     * Gasto instantane. Sin fecha de vencimiento
+     *
+     * @return Response
+     */
+    public function create_instantaneo()
+    {
+        $tipos_gasto = TipoGastoModel::all();
+        $datos_tipo = array();
+        foreach($tipos_gasto as $tipo) {
+            $datos_tipo[$tipo->id] = $tipo->nombre;
+        }
+
+        return view('gasto/crear', [ 'title_panel' => 'Gasto instantaneo ', 'tipo_gasto' => $datos_tipo, 'instantanea' => true]);
     }
 
     /**
@@ -53,7 +76,10 @@ class GastoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        
+        GastoModel::create($input);
+        return redirect()->route('gasto');
     }
 
     /**
@@ -90,7 +116,7 @@ class GastoController extends Controller
             $datos_tipo[$tipo->id] = $tipo->nombre;
         }
 
-        return view('gasto_edit', ['gasto' => $datos, 'title_panel' => 'Editar Gastos', 'tipo_gasto' => $datos_tipo]);
+        return view('gasto/editar', ['gasto' => $datos, 'title_panel' => 'Editar Gastos', 'tipo_gasto' => $datos_tipo]);
     }
 
     /**
@@ -124,14 +150,28 @@ class GastoController extends Controller
     {
         $gasto = GastoModel::findOrFail($id);
         $gasto->fecha_pago = date("Y/m/d");
+        $gasto->pagado = true;
         $gasto->save();
 
         return redirect()->route('gasto');
     }
 
     public function show_deuda() {
-        $gasto = GastoModel::where('fecha_pago', '=',null)->get();
-        dd($gasto);
+        $gastos = GastoModel::where('fecha_pago', '=',null)->get();
+
+        $array_gastos = array();
+        
+        foreach ($gastos as $gasto) {
+            $tmp['importe'] = $gasto->importe;
+            $tmp['fecha_vencimineto'] = $gasto->fecha_vencimineto;
+            $tmp['nombre'] = $gasto->tipo_gasto->nombre;
+            $tmp['id'] = $gasto->id;
+            array_push($array_gastos, $tmp);
+        }
+
+        return view('gasto/listar', ['gastos' => $array_gastos, 'title_panel' => 'Lista Gastos' ]); 
+
+        //dd($gasto);
 
     }
 }

@@ -19,8 +19,7 @@ class TipoGastoController extends Controller
     public function index()
     {
         $tipo_gastos = TipoGastoModel::all();
-        //return \View::make('tipo_gasto_listado');
-        return view('tipo_gasto_listado', ['tipo_gastos' => $tipo_gastos,'title_panel' => 'Lista Gastos' ]); 
+        return view('tipo_gasto/listar', ['tipo_gastos' => $tipo_gastos,'title_panel' => 'Lista Gastos' ]); 
     }
 
     /**
@@ -30,7 +29,7 @@ class TipoGastoController extends Controller
      */
     public function create()
     {
-        return view('tipo_gasto_create');
+        return view('tipo_gasto/crear');
     }
 
     /**
@@ -66,7 +65,7 @@ class TipoGastoController extends Controller
     public function edit($id)
     {
         $gasto = TipoGastoModel::findOrFail($id);
-        return view('tipo_gasto_edit', compact('gasto'));
+        return view('tipo_gasto/editar', compact('gasto'));
     }
 
     /**
@@ -94,9 +93,10 @@ class TipoGastoController extends Controller
     public function destroy($id)
     {
         $gasto = TipoGastoModel::findOrFail($id);
-        $gasto->delete();
+        dd($gasto);
+        //$gasto->delete();
 
-        Session::flash('message', $gasto->nombre.' fue eliminado');
+        //Session::flash('message', $gasto->nombre.' fue eliminado');
         return redirect()->route('tipo_gasto');   
     }
 }

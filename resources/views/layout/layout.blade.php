@@ -21,8 +21,6 @@
 
 		{!! Html::script('assets/js/bootstrap.min.js') !!}
 
-	@section('scripts')
-	{!! Html::script('assets/js/bootstrap.min.js') !!}
-	@endsection
+	
 </body>
 </html>
